@@ -1,4 +1,4 @@
 # Algorithm
-This is my Algorithm javascript practice
+This is my Algorithm javascript practice.
 
 Mainly record my leetcode journey.
