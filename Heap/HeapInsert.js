@@ -6,16 +6,6 @@ function heapInsert(arr, index) {
 
 }
 
-
-
-
-
-
-
-
-
-
-
 function swap(arr, num, index) {
     let tmp = arr[num];
     arr[num] = arr[index];
