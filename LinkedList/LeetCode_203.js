@@ -22,8 +22,8 @@ var removeElements = function (head, val) {
         if (start.next.val === val) {
             start.next = start.next.next
         } else {
-        // only if the val not equal with the parameter, then move
-        // on the node. 
+            // only if the val not equal with the parameter, then move
+            // on the node. 
             start = start.next
         }
     }
