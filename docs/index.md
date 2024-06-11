@@ -52,3 +52,34 @@ function dfs(i, start) {
   }
 }
 ```
+
+## 51.N-Queens
+
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+
+![Queens](../public/queens.jpg)
+
+### Thought
+
+Check every column of every rows. If the block can be placed with chess, place it and go deeper to next row. When the recursion is over, reset the block with '.'.
+
+```javascript
+function dfs(row) {
+  if (row === n) {
+    result.push(path.map((row) => row.join("")));
+    return;
+  }
+
+  for (let col = 0; col < n; col++) {
+    if (canPlace(row, col)) {
+      path[row][col] = "Q";
+      dfs(row + 1);
+      path[row][col] = ".";
+    }
+  }
+}
+```
