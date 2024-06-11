@@ -83,3 +83,61 @@ function dfs(row) {
   }
 }
 ```
+
+#### Main Diagonal (\\ Diagonal)
+
+The main diagonal refers to the diagonal from the top left to the bottom right of a grid. In a two-dimensional array, all elements on the main diagonal have the same row-column difference, i.e., `row-col` is constant. For example, in a 4\*4 board:
+
+```
+[Q, ., ., .]
+[., Q, ., .]
+[., ., Q, .]
+[., ., ., Q]
+```
+
+Each Q is on the main diagonal. Their `(row,col)` differences are `(0-0),(1-1),(2-2),(3-3)`, which means each difference is 0.
+
+#### Anti-Diagonal (/ Diagonal)
+
+The anti-diagonal refers to the diagonal from the top right to the bottom left of a grid. In a two-dimensional array, all elements on the anti-diagonal have the same `row-column` sum, i.e., `row + col` is constant. For example, in a 4x4 board:
+
+```
+[., ., ., Q]
+[., ., Q, .]
+[., Q, ., .]
+[Q, ., ., .]
+```
+
+Each Q is on the anti-diagonal. Their (row, col) sums are (0+3), (1+2), (2+1), (3+0), which means each sum is 3.
+
+Thus we can optimize our code:
+
+```javascript
+function dfs(row) {
+  if (row === n) {
+    result.push(path.map((row) => row.join("")));
+    return;
+  }
+
+  for (let col = 0; col < n; col++) {
+    if (cols[col] || diag1[row - col + n - 1] || diag2[row + col]) {
+      continue;
+    }
+
+    path[row][col] = "Q";
+    cols[col] = true;
+    diag1[row - col + n - 1] = true;
+    diag2[row + col] = true;
+
+    dfs(row + 1);
+
+    path[row][col] = ".";
+    cols[col] = false;
+    diag1[row - col + n - 1] = false;
+    diag2[row + col] = false;
+  }
+}
+
+dfs(0);
+return result;
+```
