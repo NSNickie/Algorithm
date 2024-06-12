@@ -129,3 +129,29 @@ var searchMatrix = function (matrix, target) {
   return false;
 };
 ```
+
+## 34. Find First and Last Position of Element in Sorted Array
+
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+
+If target is not found in the array, return [-1, -1].
+
+You must write an algorithm with O(log n) runtime complexity.
+
+### Thought
+
+1. Ask for the lower bound of a number(>=target), use lowerBound(nums,target)
+2. Ask for the index of the number > target, use lowerBound(nums,target+1).
+3. Ask for the index of the number < target, use lowerBound(nums,target)-1
+4. Ask for the index of the number <= target, use lowerBound(nums,target+1)-1
+
+So, we can use No.1 and No.4 to calculate the lower and the upper bound of target.
+
+```javascript
+const start = lowerBound(nums, target);
+if (start === nums.length || nums[start] !== target) {
+  return [-1, -1];
+}
+const end = lowerBound(nums, target + 1) - 1;
+return [start, end];
+```
