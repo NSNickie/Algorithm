@@ -10,10 +10,13 @@ You must write an algorithm with O(log n) runtime complexity.
 
 A classical binary search problem.
 
+- First solution
+
 ```javascript
 function searchInsert(nums, target) {
   let left = 0;
-  let right = nums.length - 1;
+  let right = nums.length - 1; //[left,right]
+  //not empty
   while (left <= right) {
     let mid = Math.floor((left + right) / 2);
     if (nums[mid] < target) {
@@ -23,5 +26,42 @@ function searchInsert(nums, target) {
     }
   }
   return left;
+}
+```
+
+- Second solution
+
+```javascript
+function searchInsert(nums, target) {
+  let left = 0;
+  let right = nums.length; // [left,right)
+  // not empty
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] < target) {
+      left = mid + 1; //[mid+1,right)
+    } else {
+      right = mid; //[left,mid])
+    }
+  }
+  return left;
+}
+```
+
+- Third solution
+
+```javascript
+function searchInsert(nums, target) {
+  let left = -1;
+  let right = nums.length;
+  while (left + 1 < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] < target) {
+      left = mid;
+    } else {
+      right = mid;
+    }
+  }
+  return right;
 }
 ```
