@@ -10,7 +10,7 @@ You must write an algorithm with O(log n) runtime complexity.
 
 A classical binary search problem.
 
-- First solution
+- First solution, closed interval
 
 ```javascript
 function searchInsert(nums, target) {
@@ -29,7 +29,7 @@ function searchInsert(nums, target) {
 }
 ```
 
-- Second solution
+- Second solution, semi shrouded interval
 
 ```javascript
 function searchInsert(nums, target) {
@@ -48,7 +48,7 @@ function searchInsert(nums, target) {
 }
 ```
 
-- Third solution
+- Third solution, open interval
 
 ```javascript
 function searchInsert(nums, target) {
@@ -64,4 +64,68 @@ function searchInsert(nums, target) {
   }
   return right;
 }
+```
+
+## 74.Search A 2D Matrix
+
+You are given an m x n integer matrix matrix with the following two properties:
+
+Each row is sorted in non-decreasing order.
+The first integer of each row is greater than the last integer of the previous row.
+Given an integer target, return true if target is in matrix or false otherwise.
+
+You must write a solution in O(log(m \* n)) time complexity.
+
+### Thought
+
+Well, we can use a for loop to and do binary search on each row. But the time complexity is O(m\*logn) and it doesn't meet the requirements of the problem. And we can use the first number and the last number of each row to skip some rows.
+
+```javascript
+var searchMatrix = function (matrix, target) {
+  for (let i = 0; i < matrix.length; i++) {
+    let left = 0;
+    let right = matrix[i].length - 1;
+    //skip rows
+    if (matrix[i][0] > target || matrix[i][right] < target) {
+      continue;
+    }
+    while (left <= right) {
+      let mid = Math.floor((left + right) / 2);
+      if (matrix[i][mid] < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    if (matrix[i][left] === target) {
+      return true;
+    }
+  }
+  return false;
+};
+```
+
+But we can do better. We can unfold the matrix to an one dimensional array, then we calculate the row and column of each index. Then we use them to do binary search on the array.
+
+```javascript
+var searchMatrix = function (matrix, target) {
+  const rowC = matrix.length;
+  const colC = matrix[0].length;
+  let left = 0;
+  let right = rowC * colC - 1;
+
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    let midValue = matrix[Math.floor(mid / colC)][mid % colC];
+    if (midValue < target) {
+      left = mid + 1;
+    } else if (midValue > target) {
+      right = mid - 1;
+    } else {
+      return true;
+    }
+  }
+
+  return false;
+};
 ```
