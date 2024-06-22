@@ -1,5 +1,6 @@
 The quieter you are, the more you are able to hear.
 整理心情，继续上路。
+加油。
 
 **Backtrace** : [https://nsnickie.github.io/Algorithm/backtrace](https://nsnickie.github.io/Algorithm/backtrace)
 
