@@ -53,3 +53,13 @@ Given an array of integers `temperatures` represents the daily temperatures, ret
 
 
 
+## 347. Top K Frequent Elements
+
+Given an integer array `nums` and an integer `k`, return *the* `k` *most frequent elements*. You may return the answer in **any order**.
+
+ 
+
+## Thought
+
+- Apparently we can use brute force algorithm. Count all elements in the array and store them in a map. Then use an array to sort their rank by the number of times of appearance. Then return the result.
+- But obviously we should use another way to solve it.
