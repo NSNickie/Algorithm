@@ -1,6 +1,6 @@
 The quieter you are, the more you are able to hear.
 整理心情，继续上路。
-加油。给我一点时间。
+加油。给我一点时间。先把日语练好。
 
 **Backtrace** : [https://nsnickie.github.io/Algorithm/backtrace](https://nsnickie.github.io/Algorithm/backtrace)
 
