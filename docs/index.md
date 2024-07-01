@@ -7,3 +7,5 @@ The quieter you are, the more you are able to hear.
 **Binary search** : [https://nsnickie.github.io/Algorithm/binary_search](https://nsnickie.github.io/Algorithm/binary_search)
 
 **Stack** : [https://nsnickie.github.io/Algorithm/stack](https://nsnickie.github.io/Algorithm/stack)
+
+**Greedy** : [https://nsnickie.github.io/Algorithm/greedy](https://nsnickie.github.io/Algorithm/greedy)
