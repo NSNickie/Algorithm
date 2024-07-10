@@ -39,3 +39,17 @@ Return *the minimum number of jumps to reach* `nums[n - 1]`. The test cases are 
 
 Just don't think too much. **Use a for loop to simulate the jump process until we reach to the end**. For every step, we jump as far as we can then record the step. Finally, we can get the minimum steps to reach the end. This is called <u>**Greedy Strategy**</u>.
 
+
+
+## 763. Partition Labels
+
+You are given a string `s`. We want to partition the string into as many parts as possible so that each letter appears in at most one part.
+
+Note that the partition is done so that after concatenating all the parts in order, the resultant string should be `s`.
+
+Return *a list of integers representing the size of these parts*.
+
+### Thought
+
+Apparently we need to record the last index of each characters. Use a for loop to go over the string `s` and save each last index of all characters in a map. Then go over the string `s` one more time to decide the end. 
+
