@@ -27,3 +27,16 @@ Given an integer array `nums` representing the amount of money of each house, re
 ### Thought
 
 A very classical problem of dynamic programming. The state transition equation is `maxMoney[i]=Math.max(maxMoney[i-2]+nums[i], maxMoney[i-1])`. With the equation we can solve this problem.
+
+
+
+## 279. Perfect Squares
+
+Given an integer `n`, return *the least number of perfect square numbers that sum to* `n`.
+
+A **perfect square** is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, `1`, `4`, `9`, and `16` are perfect squares while `3` and `11` are not.
+
+### Thought
+
+The state transition equation is `dp[i]=Math.min(dp[i],dp[i-j*j]+1)`.
+
