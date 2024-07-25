@@ -49,3 +49,15 @@ You may assume that you have an infinite number of each kind of coin.
 ### Thought
 
 The state transition equation is `dp[i]=Math.min(dp[i],dp[i-coin]+1)`. It means that if we choose one coin, the number we need is `dp[i-coin]+1`. We can choose the minimum number of results.
+
+
+
+## 139. Word Break
+
+Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words.
+
+**Note** that the same word in the dictionary may be reused multiple times in the segmentation.
+
+### Thought
+
+A classical dynamic programming problem. Use a array `dp` to check every character possible result. With double for loop, we can find all possible results.  Return the last value of `dp`. 
