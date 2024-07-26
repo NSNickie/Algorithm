@@ -61,3 +61,13 @@ Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` 
 ### Thought
 
 A classical dynamic programming problem. Use a array `dp` to check every character possible result. With double for loop, we can find all possible results.  Return the last value of `dp`. 
+
+
+
+## 300. Longest Increasing Subsequence
+
+Given an integer array `nums`, return *the length of the longest **strictly increasing*** ***subsequence***.
+
+### Thought
+
+The first solution is use double for loop. The state transition equation is `dp[i]=Math.max(dp[i],dp[j]+1)`.
