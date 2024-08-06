@@ -71,3 +71,12 @@ Given an integer array `nums`, return *the length of the longest **strictly incr
 ### Thought
 
 The first solution is use double for loop. The state transition equation is `dp[i]=Math.max(dp[i],dp[j]+1)`.
+
+## 416. Partition Equal Subset Sum
+
+Given an integer array `nums`, return `true` *if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or* `false` *otherwise*.
+
+#### Thought
+
+A classic 0-1 bag problem. The state transition equation is `dp[i][j]=dp[i-1][j]||dp[i-1][j-nums[i-1]]`. `i` means the index of the array and j means capacity. If we don't choose the current element, the result will be `dp[i-1][j]`. Then we check if the current capacity is larger than `nums[i-1]`. If so, it means we can't choose current item because it is oversize. Otherwise we check the value of  `dp[i-1][j-nums[i-1]] ` and `dp[i][j]`.
+
