@@ -11,3 +11,5 @@ The quieter you are, the more you are able to hear.
 **Greedy** : [https://nsnickie.github.io/Algorithm/greedy](https://nsnickie.github.io/Algorithm/greedy)
 
 **Dynamic Programming** : [https://nsnickie.github.io/Algorithm/dynamic_programming](https://nsnickie.github.io/Algorithm/dynamic_programming)
+
+**Multi Dimensional Dynamic Programming** : [https://nsnickie.github.io/Algorithm/dynamic_programming](https://nsnickie.github.io/Algorithm/multi_dimensional_dynamic_programming)
