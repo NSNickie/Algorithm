@@ -23,3 +23,16 @@ Given a `m x n` `grid` filled with non-negative numbers, find a path from top le
 
 This problem is almost the same as 62. We can use a `dp` to record every block minimum steps. Then we go over the grip and calculate all minimum steps. The state transition equation is `dp[i][j]=Math.min(dp[i-1][j],dp[i][j-1])+grid[i][j]`. Return the result `dp[gird.length-1][grid[0].length-1]`.
 
+## 1143. Longest Common Subsequence
+
+Given two strings `text1` and `text2`, return *the length of their longest **common subsequence**.* If there is no **common subsequence**, return `0`.
+
+A **subsequence** of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+- For example, `"ace"` is a subsequence of `"abcde"`.
+
+A **common subsequence** of two strings is a subsequence that is common to both strings.
+
+#### Thought
+
+Use a 2-dimensional array `dp` to record longest common subsequence length.`dp[i][j]` means the longest common subsequence length of `text1[0-i]` and `text2[0-j]`. Initialize `dp` with 0. The state transition equation is: if `text1[i-1]===text2[j-1]`, then `dp[i][j]=dp[i-1][j-1]+1`; if `text1[i-1]!==text2[j-1]`, then `dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1])`. Solve!
