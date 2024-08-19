@@ -36,3 +36,11 @@ A **common subsequence** of two strings is a subsequence that is common to both 
 #### Thought
 
 Use a 2-dimensional array `dp` to record longest common subsequence length.`dp[i][j]` means the longest common subsequence length of `text1[0-i]` and `text2[0-j]`. Initialize `dp` with 0. The state transition equation is: if `text1[i-1]===text2[j-1]`, then `dp[i][j]=dp[i-1][j-1]+1`; if `text1[i-1]!==text2[j-1]`, then `dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1])`. Solve!
+
+## 72. Edit Distance
+
+Given two strings `word1` and `word2`, return *the minimum number of operations required to convert `word1` to `word2`*.
+
+#### Thought
+
+We can use an two-dimensional array `dp` to record every element results. State transition equation: if `word1[i-1]===word2[j-1]`, `dp[i][j]=dp[i-1][j-1]`, else `dp[i][j]=Math.min(dp[i-1][j-1]+1),dp[i][j-1]+1,dp[i-1][j]+1`. Solve!
