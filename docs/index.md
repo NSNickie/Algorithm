@@ -12,4 +12,6 @@ The quieter you are, the more you are able to hear.
 
 **Dynamic Programming** : [https://nsnickie.github.io/Algorithm/dynamic_programming](https://nsnickie.github.io/Algorithm/dynamic_programming)
 
-**Multi Dimensional Dynamic Programming** : [https://nsnickie.github.io/Algorithm/dynamic_programming](https://nsnickie.github.io/Algorithm/multi_dimensional_dynamic_programming)
+**Multi Dimensional Dynamic Programming** : [https://nsnickie.github.io/Algorithm/multi_dimensional_dynamic_programming](https://nsnickie.github.io/Algorithm/multi_dimensional_dynamic_programming)
+
+**Technique** : [https://nsnickie.github.io/Algorithm/Technique](https://nsnickie.github.io/Algorithm/technique)
