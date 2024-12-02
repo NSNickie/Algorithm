@@ -243,3 +243,48 @@ var removeDuplicates = function (nums) {
 };
 ```
 
+
+
+## 169. Majority Element
+
+Given an array `nums` of size `n`, return *the majority element*.
+
+The majority element is the element that appears more than `⌊n / 2⌋` times. You may assume that the majority element always exists in the array.
+
+### Thought
+
+Apparrently the problem is a classical <u>**Boyer-Moore algorithm**</u>. The **<u>Boyer-Moore Voting Algorithm</u>** is a clever technique used to find the majority element in an array, where the majority element is the one that appears more than half the time ( if it exists ). It achieves this in **O(n)** time complexity uses **O(1)** extra space.
+
+Core Idea
+
+The algorithm works by maintaining a **candidate** for the majority element and a **counter** to track how many times the candidate appears in comparison to other elements.
+
+Steps:
+
+1. **Initialization**: Start with an empty candidate and a counter set to zero.
+2. **Candiate Selection**:
+   - Traverse the array.
+   - If the counter is 0, set the current element as the candidate and set the counter to 1.
+   - Otherwise:
+     - If the current element matches the candidate, increment the counter.
+     - If it doesn't match, decrement the counter.
+3. **Verification (Optional)**: Once the traversal is complete, the candidate is the potential majority element. If needed,  verify its count in a second pass.
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function (nums) {
+    let candidate = null
+    let count = 0
+    for (const num of nums) {
+        if (!count) {
+            candidate = num
+        }
+        num === candidate ? count++ : count--
+    }
+    return candidate
+};
+```
+
