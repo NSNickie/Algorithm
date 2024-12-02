@@ -109,7 +109,7 @@ int[] expectedNums = [...]; // The expected answer with correct length
 
 int k = removeDuplicates(nums); // Calls your implementation
 
-assert k == expectedNums.length;
+assert k == expectedNumsd.length;
 for (int i = 0; i < k; i++) {
 assert nums[i] == expectedNums[i];
 }
@@ -120,3 +120,76 @@ If all assertions pass, then your solution will be accepted.
 ### Thought
 
 The problem is just like 27.
+
+## 122.Best Time to Buy and Sell Stock II
+
+You are given an integer array `prices` where `prices[i]` is the price of a given stock on the `ith` day.
+
+On each day, you may decide to buy and/or sell the stock. You can only hold **at most one** share of the stock at any time. However, you can buy it then immediately sell it on the **same day**.
+
+Find and return *the **maximum** profit you can achieve*.
+
+### Thought
+
+1. Method 1, we can use **greedy algorithm** to solve this problem. The **core** **idea** of greedy algorithm is that **local optimal choices lead to a global optimal solution**. In the stock trading problem, capturing every price increase (the difference between two consecutive days) as individual profit will yield the maximum profit overall.
+
+   ```javascript
+   /**
+    * @param {number[]} prices
+    * @return {number}
+    */
+   var maxProfit = function (prices) {
+       let profit = 0
+       for (let i = 1; i < prices.length; i++) {
+           if (prices[i] > prices[i - 1]) {
+               profit += prices[i] - prices[i - 1]
+           }
+       }
+       return profit
+   };
+   ```
+
+2. Method 2, **dynamic programming**. Dynamic programming is a method for solving problems by breaking them into overlapping subproblems and solving each subproblem only once, storing the results to avoid redundant computations. For the stock trading problem, we use DP to track the maximum profit while considering whether we currently "hold a stock" or "don't hold a stock".
+
+   - State Representation
+
+     Define two states for each day i:
+
+     - `dp[i][0]` : Maximum profit on day i if **we don't hold a stock**.
+     - `dp[i][1]` : Maximum profit on day i if **we hold a stock**.
+
+   - State Transition
+
+     - if we **don't hold a stock** on day i, we either:
+       - Did not hold a stock on day `i-1` (`dp[i-1][0]`)
+       - Sold a stock on day i (`dp[i-1][1]+price[i]`)
+       - Formula:`dp[i][0] = max(dp[i-1][0],dp[i-1][1]+price[i])`
+     - If we hold a stock on day i, we either:
+       - Bought a stock on day i (`dp[i][0]-price[i]`)
+       - Held a stock on day i-1 (`dp[i-1][1]`)
+       - Formula: `dp[i][1] = max(dp[i][0]-price[i],dp[i-1][1])`
+
+   - Base Cases:
+
+     - On day 0:
+       - `dp[0][0]=0`: No stock, no profit.
+       - `dp[0][1]=-price[0]` : Bought a stock, negative profit.
+
+   ```javascript
+   function maxProfit(prices) {
+       let dp0 = 0; 
+       let dp1 = -prices[0];
+   
+       for (let i = 1; i < prices.length; i++) {
+           let newDp0 = Math.max(dp0, dp1 + prices[i]);
+           let newDp1 = Math.max(dp1, dp0 - prices[i]);
+           dp0 = newDp0;
+           dp1 = newDp1;
+       }
+       return dp0;
+   }
+   
+   ```
+
+   
+
