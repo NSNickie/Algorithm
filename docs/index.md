@@ -1,6 +1,4 @@
 The quieter you are, the more you are able to hear.
-整理心情，继续上路。
-加油。给我一点时间。Just calm down.
 
 **Backtrace** : [https://nsnickie.github.io/Algorithm/backtrace](https://nsnickie.github.io/Algorithm/backtrace)
 
@@ -15,3 +13,5 @@ The quieter you are, the more you are able to hear.
 **Multi Dimensional Dynamic Programming** : [https://nsnickie.github.io/Algorithm/multi_dimensional_dynamic_programming](https://nsnickie.github.io/Algorithm/multi_dimensional_dynamic_programming)
 
 **Technique** : [https://nsnickie.github.io/Algorithm/Technique](https://nsnickie.github.io/Algorithm/technique)
+
+**Array** : [https://nsnickie.github.io/Algorithm/Array](https://nsnickie.github.io/Algorithm/array)
