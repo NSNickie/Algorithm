@@ -328,3 +328,41 @@ var rotate = function (nums, k) {
 
 ```
 
+
+
+## 274.H-Index
+
+Given an array of integers `citations` where `citations[i]` is the number of citations a researcher received for their `ith` paper, return *the researcher's h-index*.
+
+According to the [definition of h-index on Wikipedia](https://en.wikipedia.org/wiki/H-index): The h-index is defined as the maximum value of `h` such that the given researcher has published at least `h` papers that have each been cited at least `h` times.
+
+### Thought
+
+To find the H-Index, we take the following approach:
+
+1. **Sort the citations array in descending order**. This ensures that papers with the highest citations are processed first.
+2. For each paper at position i in the sorted array, calculate the candidate **h** as **i+1** (since i+1 papers have been examined so far).
+3. **Check if citations[i]>=i+1**:
+   - If true, the candidate **h=i+1** is valid.
+   - if false, stop the process and return the largest valid **h** found so far.
+
+This approach ensures we maximize h whiel maintaining the conditions for the **H-index**.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} citations
+ * @return {number}
+ */
+var hIndex = function (citations) {
+    citations.sort((a, b) => b - a)
+    for (let i = 0; i < citations.length; i++) {
+        if (citations[i] < i + 1) {
+            return i
+        }
+    }
+    return citations.length
+};
+```
+
