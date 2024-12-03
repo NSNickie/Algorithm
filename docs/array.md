@@ -288,3 +288,43 @@ var majorityElement = function (nums) {
 };
 ```
 
+
+
+## 189.Rotate Array
+
+Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative.
+
+### Thought
+
+The problem can be solved by using a new array easily. But if we want to solve this with **O(1)** space complexity and **O(n)** time complexity, we can use **Reverse Array** method. 
+
+Steps:
+
+- Reverse the entire array.
+- Reverse the first k elements.
+- Reverse the remaining n - k elements
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function (nums, k) {
+  k = k % nums.length;
+  function reverse(start, end) {
+    while (start < end) {
+      [nums[start], nums[end]] = [nums[end], nums[start]];
+      start++;
+      end--;
+    }
+  }
+  reverse(0, nums.length - 1);
+  reverse(0, k - 1);
+  reverse(k, nums.length - 1);
+};
+
+```
+
