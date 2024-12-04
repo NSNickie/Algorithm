@@ -463,3 +463,53 @@ RandomizedSet.prototype.getRandom = function () {
 - **Total Space Complexity**
 
   **O(1)**
+
+
+
+## 121.Best Time to Buy and Sell Stock
+
+You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day.
+
+You want to maximize your profit by choosing a **single day** to buy one stock and choosing a **different day in the future** to sell that stock.
+
+Return *the maximum profit you can achieve from this transaction*. If you cannot achieve any profit, return `0`.
+
+### Thought
+
+1. **Single Pass Solution**
+   - Traverse the prices array from left to right while maintaining a variable `minPrice` to track the lowest stock price so far.
+   - For each day, calculate the potential profit as `profit=prices[i]-minPrice`
+   - Track the maximum profit using a variable `maxProfit` during the traversal.
+   - At the end of the loop, return `maxProfit`.
+2. **Optimization**
+   - By keeping track of the minimum price, we avoid using nested loops.
+   - The time complexity is reduced to O(n).
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+    if (prices.length === 0) {
+        return 0
+    }
+    let min = prices[0]
+    let max = 0
+    for (let i = 1; i < prices.length; i++) {
+        if (prices[i] < min) {
+            min = prices[i]
+        } else {
+            max = Math.max(max, prices[i] - min)
+        }
+    }
+    return max
+};
+```
+
+### Complexity
+
+- Time Complexity: **O(n)**
+- Space Complexiry: **O(1)**
