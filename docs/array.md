@@ -370,3 +370,96 @@ var hIndex = function (citations) {
 
 - Time complexity: **O(nlogn)**
 - Space complexity: **O(1)**
+
+
+
+## 380.Insert Delete GetRandom O(1)
+
+Implement the `RandomizedSet` class:
+
+- `RandomizedSet()` Initializes the `RandomizedSet` object.
+- `bool insert(int val)` Inserts an item `val` into the set if not present. Returns `true` if the item was not present, `false` otherwise.
+- `bool remove(int val)` Removes an item `val` from the set if present. Returns `true` if the item was present, `false` otherwise.
+- `int getRandom()` Returns a random element from the current set of elements (it's guaranteed that at least one element exists when this method is called). Each element must have the **same probability** of being returned.
+
+You must implement the functions of the class such that each function works in **average** `O(1)` time complexity.
+
+### Thought
+
+We can use a map and a array to store elements. The key is val and the value is the index of val. When we remove the element, we can delete it from the array first then delete it from the map. In **getRandom** method, we can use **Math.floor** and **Math.random** to calculate a random index.
+
+### Code
+
+```javascript
+var RandomizedSet = function () {
+  this.map = new Map();
+  this.arr = new Array();
+};
+
+/**
+ * @param {number} val
+ * @return {boolean}
+ */
+RandomizedSet.prototype.insert = function (val) {
+  if (this.map.has(val)) {
+    return false;
+  } else {
+    this.arr.push(val);
+    this.map.set(val, this.arr.length - 1);
+    return true;
+  }
+};
+
+/**
+ * @param {number} val
+ * @return {boolean}
+ */
+RandomizedSet.prototype.remove = function (val) {
+  if (!this.map.has(val)) return false;
+  const index = this.map.get(val);
+
+  const lastElement = this.arr[this.arr.length - 1];
+
+  this.arr[index] = lastElement;
+  this.map.set(lastElement, index);
+
+  this.arr.pop();
+  this.map.delete(val);
+  return true;
+};
+
+/**
+ * @return {number}
+ */
+RandomizedSet.prototype.getRandom = function () {
+  const randomIndex = Math.floor(Math.random() * this.arr.length);
+  return this.arr[randomIndex];
+};
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * var obj = new RandomizedSet()
+ * var param_1 = obj.insert(val)
+ * var param_2 = obj.remove(val)
+ * var param_3 = obj.getRandom()
+ */
+
+```
+
+### Complexity
+
+- **Insert(val)**
+
+  Time Complexity: **O(1)**
+
+- **remove(val)**
+
+  Time Complexity: **O(1)**
+
+- **getRandom()**
+
+  Time Complexity: **O(1)**
+
+- **Total Space Complexity**
+
+  **O(1)**
