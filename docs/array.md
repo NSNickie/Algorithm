@@ -569,3 +569,50 @@ var canCompleteCircuit = function (gas, cost) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+## 
+
+## 55.Jump Game
+
+You are given an integer array `nums`. You are initially positioned at the array's **first index**, and each element in the array represents your maximum jump length at that position.
+
+Return `true` *if you can reach the last index, or* `false` *otherwise*.
+
+### Thought
+
+This problem can be solved using a **greedy algorithm**.
+
+1. **Core Idea**:
+   - Maintain a variable `maxReach` that keeps track of the farthest index you can reach.
+   - If the current index `i` exceeds `maxReach`, it means there is a "gap" in the array that you cannot cross, so return false.
+   - As you iterate, update `maxReach=max(maxReach,i+nums[i])`. If `maxReach` reaches or exceeds the last index (`n-1`), return `true`.
+2. **Steps**:
+   - Initialize `maxReach=0`
+   - Iterate through the array:
+     - If `i>maxReach`, return `false`.
+     - Otherwise, update `maxReach=max(maxReach,i+nums[i])`.
+   - After the loop, if `maxReach>=nums.length-1`, return `true`
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function (nums) {
+  let maxIndex = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > maxIndex) return false;
+    maxIndex = Math.max(maxIndex, i + nums[i]);
+    if (maxIndex >= nums.length - 1) return true;
+  }
+  return false;
+};
+
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
