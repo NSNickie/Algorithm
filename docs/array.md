@@ -513,3 +513,59 @@ var maxProfit = function (prices) {
 
 - Time Complexity: **O(n)**
 - Space Complexiry: **O(1)**
+
+
+
+## 134.Gas Station
+
+There are `n` gas stations along a circular route, where the amount of gas at the `ith` station is `gas[i]`.
+
+You have a car with an unlimited gas tank and it costs `cost[i]` of gas to travel from the `ith` station to its next `(i + 1)th` station. You begin the journey with an empty tank at one of the gas stations.
+
+Given two integer arrays `gas` and `cost`, return *the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return* `-1`. If there exists a solution, it is **guaranteed** to be **unique**.
+
+### Thought
+
+1. **Condition for Infeasibility**
+   - if the total gas available`sum(gas)`is less than the total cost required `sum(cost)`, it is impossible to complete the circuit, so return `-1`.
+2. **Greddy Algorithm Insight**
+   - If starting from station `i`, we run out of gas at station `j`, then no station between `i` and `j` can be a valid starting point. This is because the accumulated fuel from `i` to `j` is negative, and no intermediate station will have more fuel to complete the trip.
+3. **Steps**
+   - **Initialize Variables**
+     - `total_tank`: Tracks total fuel balance for the entire circuit.
+     - `current_tank`: Tracks fuel balance in the current segment.
+     - `starting_station`: Tracks the current candidate for a valid starting point.
+   - **Traverse All Stations**:
+     - Update `current_tank` and `total_tank` with `gas[i]-cost[i]`
+     - If `current_tank` becomes negative, reset it to `0` and move the `starting_station` to `i+1`.
+4. **Final Result**:
+   - Return `starting_station` if `total_tank>=0`; otherwise return `-1`.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+var canCompleteCircuit = function (gas, cost) {
+    let totalTank = 0, currentTank = 0
+    let startingStation = 0
+    for (let i = 0; i < gas.length; i++) {
+        totalTank += gas[i] - cost[i]
+        currentTank += gas[i] - cost[i]
+        if (currentTank < 0) {
+            startingStation = i + 1
+            currentTank = 0
+        }
+
+    }
+    return totalTank >= 0 ? startingStation : -1
+};
+```
+
+### Complexity Analysis
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
