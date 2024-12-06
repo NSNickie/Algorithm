@@ -616,3 +616,27 @@ var canJump = function (nums) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+## 45.Jump Game II
+
+You are given a **0-indexed** array of integers `nums` of length `n`. You are initially positioned at `nums[0]`.
+
+Each element `nums[i]` represents the maximum length of a forward jump from index `i`. In other words, if you are at `nums[i]`, you can jump to any `nums[i + j]` where:
+
+- `0 <= j <= nums[i]` and
+- `i + j < n`
+
+Return *the minimum number of jumps to reach* `nums[n - 1]`. The test cases are generated such that you can reach `nums[n - 1]`.
+
+### Thought
+
+- Traverse the array from the beginning to the second-last element (because once you reach the last element, no further jump is needed).
+- Update `farthest` at each index to reflect the maximum reachable position.
+- If you reach `current_end` during the traversal:
+  - Increment the `jumps`counter
+  - Update `current_end` to the value of `farthest`.
+
+### Complexity
+
+- Time complexity:**O(n)**
+- Space complexity:**O(1)**
