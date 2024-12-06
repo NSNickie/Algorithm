@@ -640,3 +640,42 @@ Return *the minimum number of jumps to reach* `nums[n - 1]`. The test cases are 
 
 - Time complexity:**O(n)**
 - Space complexity:**O(1)**
+
+
+
+## 135.Candy
+
+There are `n` children standing in a line. Each child is assigned a rating value given in the integer array `ratings`.
+
+You are giving candies to these children subjected to the following requirements:
+
+- Each child must have at least one candy.
+- Children with a higher rating get more candies than their neighbors.
+
+Return *the minimum number of candies you need to have to distribute the candies to the children*.
+
+### Thought
+
+The problem can be solved using a **two-pass greedy algorithm**:
+
+1. **Left-to-right pass:**
+
+   Ensure that every child who has a higher score than the child to their left gets more candies than the left child.
+
+2. **Right-to-left pass:**
+
+   Ensure that every child who has a higher score than the child to their right gets more candies than the right child.
+
+**Steps:**
+
+1. Create an array `candies` initialized to 1 for each child.
+2. Traverse from left to right:
+   - If `ratings[i]>ratings[i-1]`, update `candies[i]=candies[i-1]+1`.
+3. Traverse from right to left:
+   - If `ratings[i]>ratings[i+1]`, update `candies[i]=max(candies[i],candies[i+1]+1)`.
+4. Finally, return the sum of the `candies` array.
+
+### Complexity
+
+- Time complexity:**O(n)**
+- Space complexity:**O(n)**
