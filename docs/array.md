@@ -897,4 +897,24 @@ var romanToInt = function (s) {
 
 ### Complexity:
 
-- Time complexity: 
+- Time complexity: **O(n)**
+- Space complexity:**O(1)**
+
+
+
+## 42.Trapping Rain Water
+
+Given `n` non-negative integers representing an elevation map where the width of each bar is `1`, compute how much water it can trap after raining.
+
+### Thought
+
+We can use **Brute Force** to solve this problem. But if you try this method LeetCode will say *TLE (Time Limit Exceeded)* error. Time complexity of brute force method is $O(n^2)$ , so we cannot use it. Are there any other approaches?
+
+The second approach is **Dynamic Programming**. 
+
+1. Precompute `leftMax`and `rightMax`arrays:
+   - `leftMax[i]`:Maximum height to the left of `i`.
+   - `rightMax[i]`:Maximum height to the right of `i`.
+2. Iterate through the array and calculate water trapped at each index.
+
+This method can pass the complexity check. Time complexity of the approach is $O(n)$, space complexity of it is $O(n)$.
