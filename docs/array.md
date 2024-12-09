@@ -679,3 +679,63 @@ The problem can be solved using a **two-pass greedy algorithm**:
 
 - Time complexity:**O(n)**
 - Space complexity:**O(n)**
+
+
+
+## 238.Product of Array Except Self
+
+Given an integer array `nums`, return *an array* `answer` *such that* `answer[i]` *is equal to the product of all the elements of* `nums` *except* `nums[i]`.
+
+The product of any prefix or suffix of `nums` is **guaranteed** to fit in a **32-bit** integer.
+
+You must write an algorithm that runs in `O(n)` time and without using the division operation.
+
+### Thought
+
+**Key Idea**:
+
+The solution involves calculating the **left product** and **right product** for each element.
+
+**Key Points**:
+
+1. **Left and Right Products**:
+
+   For `answer[i]`, it equals the prodcut of all elements to the **left** of `i` and all elements to the **right** of `i`:
+
+   ```javascript
+   answer[i]=left_product[i]*right_product[i]
+   ```
+
+2. **Two Passes**:
+
+   - In the first pass (left-to-right), calculate and store the **prefix product**.
+   - In the second pass (right-to-left), calculate the **suffix product** and combine it with the prefix product.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function (nums) {
+  let leftProduct = 1;
+  let rightProduct = 1;
+  const answer = new Array(nums.length).fill(1);
+  for (let i = 0; i < nums.length; i++) {
+    answer[i] = leftProduct;
+    leftProduct *= nums[i];
+  }
+  for (let i = nums.length - 1; i >= 0; i--) {
+    answer[i] *= rightProduct;
+    rightProduct *= nums[i];
+  }
+  return answer;
+};
+
+```
+
+### Complexity
+
+- Time complexity:**O(n)**
+- Space complexity:**O(1)** (notice that inputs and outputs don't count in complexity analysis)
