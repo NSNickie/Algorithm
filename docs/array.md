@@ -739,3 +739,162 @@ var productExceptSelf = function (nums) {
 
 - Time complexity:**O(n)**
 - Space complexity:**O(1)** (notice that inputs and outputs don't count in complexity analysis)
+
+
+
+## 23.Roman to Integer
+
+Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `C`, `D` and `M`.
+
+```
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+```
+
+For example, `2` is written as `II` in Roman numeral, just two ones added together. `12` is written as `XII`, which is simply `X + II`. The number `27` is written as `XXVII`, which is `XX + V + II`.
+
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not `IIII`. Instead, the number four is written as `IV`. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as `IX`. There are six instances where subtraction is used:
+
+- `I` can be placed before `V` (5) and `X` (10) to make 4 and 9. 
+- `X` can be placed before `L` (50) and `C` (100) to make 40 and 90. 
+- `C` can be placed before `D` (500) and `M` (1000) to make 400 and 900.
+
+Given a roman numeral, convert it to an integer.
+
+### Thought
+
+Apparently we can use **switch-case** block and **if-else** to controll the outputs. Complexity is not bad though. However the code of this method is not clean. If  think carefully, we can find that big character is behind small character except special circumstances. Thus we can use **Map** and the rule to write cleaner code.
+
+### Code
+
+**Switch-case & if-else**:
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function (s) {
+    let answer = 0
+    for (let i = 0; i < s.length; i++) {
+        switch (s[i]) {
+            case 'I':
+                if (i + 1 < s.length) {
+                    if (s[i + 1] === 'V') {
+                        answer += 4
+                        break
+                    } else if (s[i + 1] === 'X') {
+                        answer += 9
+                        break
+                    }
+                }
+                answer += 1
+                break
+            case 'V':
+                if (i - 1 >= 0) {
+                    if (s[i - 1] === 'I') {
+                        break
+                    }
+                }
+                answer += 5
+                break
+            case 'X':
+                if (i - 1 >= 0) {
+                    if (s[i - 1] === 'I') {
+                        break
+                    }
+                }
+                if (i + 1 < s.length) {
+                    if (s[i + 1] === 'L') {
+                        answer += 40
+                        break
+                    } else if (s[i + 1] === 'C') {
+                        answer += 90
+                        break
+                    }
+                }
+                answer += 10
+                break
+            case 'L':
+                if (i - 1 >= 0) {
+                    if (s[i - 1] === 'X') {
+                        break
+                    }
+                }
+
+                answer += 50
+                break
+            case 'C':
+                if (i - 1 >= 0) {
+                    if (s[i - 1] === 'X') {
+                        break
+                    }
+                }
+                if (i + 1 < s.length) {
+                    if (s[i + 1] === 'D') {
+                        answer += 400
+                        break
+                    } else if (s[i + 1] === 'M') {
+                        answer += 900
+                        break
+                    }
+                }
+                answer += 100
+                break
+            case 'D':
+                if (i - 1 >= 0) {
+                    if (s[i - 1] === 'C') {
+                        break
+                    }
+                }
+                answer += 500
+                break
+            case 'M':
+                if (i - 1 >= 0) {
+                    if (s[i - 1] === 'C') {
+                        break
+                    }
+                }
+                answer += 1000
+                break
+        }
+    }
+
+    return answer
+};
+```
+
+**Map**:
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function (s) {
+    const map = {
+        'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000
+    }
+    let answer = 0
+    for (let i = 0; i < s.length; i++) {
+        const current = map[s[i]]
+        const next = map[s[i + 1]] || 0
+        if (current < next) {
+            answer -= current
+        } else {
+            answer += current
+        }
+    }
+    return answer
+};
+```
+
+### Complexity:
+
+- Time complexity: 
