@@ -927,6 +927,96 @@ Yes! Approach 3 : **Two Pointers**
 2. Otherwise, calculate water based on `rightMax`, then move `right`.
 3. Time Complexity: $O(n)$ , Space Complexity: $O(1)$
 
+### Code
+
+- Brute force
+
+  ```javascript
+  /**
+   * @param {number[]} height
+   * @return {number}
+   */
+  var trapBruteForce = function (height) {
+    let water = 0;
+    for (let i = 0; i < height.length; i++) {
+      let leftMax = 0,
+        rightMax = 0;
+      for (let j = 0; j < i; j++) {
+        leftMax = Math.max(leftMax, height[j]);
+      }
+      for (let j = i; j < height.length; j--) {
+        rightMax = Math.max(rightMax, height[j]);
+      }
+      water = Math.max(0, Math.min(leftMax, rightMax) - height[i]);
+    }
+    return water;
+  };
+  ```
+
+- Dynamic Programming
+
+  ```javascript
+  /**
+   * @param {number[]} height
+   * @return {number}
+   */
+  var trapDynamicProgramming = function (height) {
+    let water = 0;
+    const leftMax = new Array(height.length).fill(0);
+    const rightMax = new Array(height.length).fill(0);
+  
+    leftMax[0] = height[0];
+    rightMax[height.length - 1] = height[height.length - 1];
+    for (let i = 1; i < height.length; i++) {
+      leftMax[i] = Math.max(height[i], leftMax[i - 1]);
+    }
+    for (let i = height.length - 2; i >= 0; i--) {
+      rightMax[i] = Math.max(height[i], rightMax[i + 1]);
+    }
+    for (let i = 0; i < height.length; i++) {
+      water += Math.max(0, Math.min(leftMax[i], rightMax[i]) - height[i]);
+    }
+    return water;
+  };
+  ```
+
+- Two Pointers
+
+  ```javascript
+  /**
+   * @param {number[]} height
+   * @return {number}
+   */
+  var trapTwoPointers = function (height) {
+    let left = 0,
+      right = height.length - 1;
+    let leftMax = 0,
+      rightMax = 0;
+    let water = 0;
+  
+    while (left < right) {
+      if (height[left] < height[right]) {
+        if (height[left] >= leftMax) {
+          leftMax = height[left];
+        } else {
+          water += leftMax - height[left];
+        }
+        left++;
+      } else {
+        if (height[right] >= rightMax) {
+          rightMax = height[right];
+        } else {
+          water += rightMax - height[right];
+        }
+        right--;
+      }
+    }
+    return water;
+  };
+  ```
+
+  
+
 ### Complexity
 
 - Brute force
@@ -938,3 +1028,42 @@ Yes! Approach 3 : **Two Pointers**
 - Two pointers
   1. Time complexity: $O(n)$
   2. Space complexity: $O(1)$
+
+
+
+## 58.Length of Last Word
+
+Given a string `s` consisting of words and spaces, return the length of the ***last*** word in the string.
+
+A **word** is a maximal substring consisting of non-space characters only. 
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function (s) {
+    let count = 0
+
+    for (let i = s.length - 1; i >= 0; i--) {
+        if (s[i] === ' ') {
+            continue
+        }
+        if (s[i] !== ' ') {
+            count++
+            if (!s[i - 1] || s[i - 1] === ' ') {
+                return count
+            }
+        }
+    }
+};
+```
+
+
+
+### Complexity
+
+- Time complexity: $O(n)$
+- Space complextity: $O(1)$
