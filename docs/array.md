@@ -918,3 +918,23 @@ The second approach is **Dynamic Programming**.
 2. Iterate through the array and calculate water trapped at each index.
 
 This method can pass the complexity check. Time complexity of the approach is $O(n)$, space complexity of it is $O(n)$.
+
+<u>*Is there any better approach?*</u>
+
+Yes! Approach 3 : **Two Pointers**
+
+1. Use two pointers (`left` and `right`) and two variables (`leftMax` and `rightMax`) to maintain the maximum heights dynamically.
+2. Otherwise, calculate water based on `rightMax`, then move `right`.
+3. Time Complexity: $O(n)$ , Space Complexity: $O(1)$
+
+### Complexity
+
+- Brute force
+  1. Time complexity: $O(n^2)$ 
+  2. Space complexity: $O(1)$
+- Dynamic programming
+  1. Time complexity: $O(n)$
+  2. Space complexity: $O(1)$
+- Two pointers
+  1. Time complexity: $O(n)$
+  2. Space complexity: $O(1)$
