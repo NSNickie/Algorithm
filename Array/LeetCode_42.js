@@ -71,3 +71,4 @@ var trapTwoPointers = function (height) {
   }
   return water;
 };
+ 
