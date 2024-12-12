@@ -1068,3 +1068,42 @@ var lengthOfLastWord = function (s) {
 - Time complexity: $O(n)$
 - Space complextity: $O(1)$
 
+
+
+## 14.Longest Common Prefix
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string `""`.
+
+### Thought
+
+Javascript has a convenient method called **startsWith**. We can use it to judge whether the string prefix is same as common. If the prefix is not match with common, cut the last character of it and match again.
+
+### Code
+
+```javascript
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+  if (strs.length === 0) return '';
+  if (strs.length === 1) return strs[0];
+
+  let common = strs[0];
+  for (let i = 1; i < strs.length; i++) {
+    while (!strs[i].startsWith(common)) {
+      common = common.slice(0, common.length - 1);
+      if (common === '') return '';
+    }
+  }
+  return common;
+};
+
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
