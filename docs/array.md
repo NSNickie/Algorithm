@@ -1181,3 +1181,69 @@ var intToRoman = function (num) {
 
 - Time complexity: **O(1)**
 - Space complexity: **O(1)**
+
+
+
+## 151.Reverse words in a String
+
+Given an input string `s`, reverse the order of the **words**.
+
+A **word** is defined as a sequence of non-space characters. The **words** in `s` will be separated by at least one space.
+
+Return *a string of the words in reverse order concatenated by a single space.*
+
+**Note** that `s` may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+### Thought
+
+In javascript we can use regex and methods to solve this problem conveniently, such as **trim, replace, split, reverse, join**. Time complexity is **O(n)**. **However** I don't think this is what the problem want us to do. 
+
+**Alternative approach ( without split and reverse)** 
+
+We can solve the problem using a **manual traversal** with two pointers to avoid extra space usage for the array. *Why two pointers is better than split and reverse?* Because the space complexity of split and reverse is **O(n)** but two pointers is **O(k)**, where **k** is the number of words.
+
+### Code
+
+**Using split and reverse**
+
+```javascript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+    let sen = s.trim().replace(/\s+/g, ' ')
+    const arr = sen.split(' ')
+    arr.reverse()
+    return arr.join(' ')
+};
+```
+
+**Using two pointers**
+
+```javascript
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+    let result = []
+    let i = s.length - 1
+    while (i >= 0) {
+        if (s[i] === ' ') {
+            i--;
+            continue
+        }
+        let j = i
+        while (j >= 0 && s[j] !== ' ') j--
+        result.push(s.slice(j+1,i+1))
+        i=j
+    }
+    return result.join(' ')
+};
+```
+
+### Complexity
+
+- Time complexity: Both are **O(n)**
+- Space complexity: Method 1 is **O(n)** and method 2 is **O(k)**
