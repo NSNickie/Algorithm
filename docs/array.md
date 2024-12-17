@@ -1247,3 +1247,61 @@ var reverseWords = function (s) {
 
 - Time complexity: Both are **O(n)**
 - Space complexity: Method 1 is **O(n)** and method 2 is **O(k)**
+
+
+
+## 6.Zigzag Conversion
+
+The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+```
+P   A   H   N
+A P L S I I G
+Y   I   R
+```
+
+And then read line by line: `"PAHNAPLSIIGYIR"`
+
+Write the code that will take a string and make this conversion given a number of rows:
+
+```
+string convert(string s, int numRows);
+```
+
+### Thought
+
+1. The zigzag movement alternates between **down** and **Up**:
+   - Move downward to the next row until the last row.
+   - Move upward diagonally back to the first row.
+2. If `numRows=1`, the zigzag is just a single row, so return `s` as is.
+3. A list (or array) of strings can represent rows. As you iterate through `s`, append each character to the appropriate row.
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+var convert = function (s, numRows) {
+    if (numRows === 1 || s.length <= numRows) return s
+    const rows = Array.from({ length: numRows }, () => [])
+    let index = 0
+    let direction = 1
+    for (const char of s) {
+        rows[index].push(char)
+        index += direction
+        if (index === 0 || index === numRows - 1) {
+            direction *= -1
+        }
+    }
+    // console.log(rows)
+    return rows.flat().join()
+};
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(n)**
