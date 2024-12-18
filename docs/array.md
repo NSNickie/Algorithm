@@ -1305,3 +1305,170 @@ var convert = function (s, numRows) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(n)**
+
+
+
+## 68.Text Justification
+
+Given an array of strings `words` and a width `maxWidth`, format the text such that each line has exactly `maxWidth` characters and is fully (left and right) justified.
+
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces `' '` when necessary so that each line has exactly `maxWidth` characters.
+
+Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line does not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+
+For the last line of text, it should be left-justified, and no extra space is inserted between words.
+
+**Note:**
+
+- A word is defined as a character sequence consisting of non-space characters only.
+- Each word's length is guaranteed to be greater than `0` and not exceed `maxWidth`.
+- The input array `words` contains at least one word.
+
+### Thought
+
+**Key Steps to Solve:**
+
+1. **Group Words into Lines**
+   - Use a **greedy approach** to fill each line with as many words as possible, ensuring the total length (including spaces) does not exceed `maxWidth`.
+   - Keep track of the current line's total character count (`lineLength`), including the spaces between words.
+2. **Format Each Line**
+   - For lines other than the last one:
+     - Calculate the total spaces needed to reach `maxWidth`.
+     - Distribute these spaces evenly between the words. If there are extra spaces, assign them to the leftmost gaps.
+   - For the last line:
+     - Left-align all words with a single space between them, and pad the end with spaces to reach `maxWidth`.
+3. **Combine Lines**
+   - After processing all lines, return the formatted result.
+
+### Code
+
+**My approcah AC at first**
+
+```javascript
+/**
+ * @param {string[]} words
+ * @param {number} maxWidth
+ * @return {string[]}
+ */
+var fullJustify = function (words, maxWidth) {
+  let curWidth = 0;
+  const curArr = [];
+  const resultArr = [];
+  for (const word of words) {
+    // console.log(`current width:${curWidth}, current word: ${word}, current array: ${curArr}`)
+    if (
+      curWidth + word.length + (curArr.length > 1 ? curArr.length - 1 : 0) >=
+      maxWidth
+    ) {
+      handleRowString(curArr, resultArr, maxWidth, curWidth);
+      curArr.length = 0;
+      curArr.push(word);
+      curWidth = word.length;
+    } else {
+      curArr.push(word);
+      curWidth += word.length;
+    }
+  }
+  handleLastRow(curArr, resultArr, maxWidth, curWidth);
+  return resultArr;
+};
+
+function handleRowString(curArr, resultArr, maxWidth, curWidth) {
+  if (curArr.length === 0) return;
+  let spaceCount = maxWidth - curWidth;
+  if (curArr.length === 1) {
+    resultArr.push(curArr[0] + ' '.repeat(spaceCount));
+    return;
+  }
+  const spaceSplitCount = curArr.length - 1;
+  const base = Math.floor(spaceCount / spaceSplitCount);
+  let remainder = spaceCount % spaceSplitCount;
+  const spaceArray = [];
+  // console.log(`spaceCount:${spaceCount}, spaceSplitCount:${spaceSplitCount}, base:${base}, remainder:${remainder}`)
+  for (let i = 0; i < spaceSplitCount; i++) {
+    const spaces = ' '.repeat((remainder > 0 ? 1 : 0) + base);
+    remainder--;
+    spaceArray.push(spaces);
+
+    // console.log(`Length of spaceArray: ${spaceArray.length}`)
+  }
+  const totalLength = spaceSplitCount + curArr.length;
+  let resultString = '';
+  // console.log(curArr)
+  // console.log(spaceArray)
+  for (let i = 0; i < totalLength; i++) {
+    if (i % 2 === 0) {
+      resultString = resultString.concat(curArr[Math.floor(i / 2)]);
+    } else {
+      resultString = resultString.concat(spaceArray[Math.floor(i / 2)]);
+    }
+  }
+  resultArr.push(resultString);
+}
+
+function handleLastRow(curArr, resultArr, maxWidth, curWidth) {
+  // console.log(curArr)
+  let restSpaces = maxWidth - curWidth - (curArr.length - 1);
+  let resultString = '';
+
+  if (curArr.length === 1) {
+    resultString = resultString.concat(curArr[0]);
+    resultString = resultString.concat(' '.repeat(restSpaces));
+    // console.log(resultString)
+    resultArr.push(resultString);
+  } else {
+    for (let i = 0; i < curArr.length; i++) {
+      if (i !== curArr.length - 1) {
+        resultString = resultString.concat(curArr[i] + ' ');
+      } else {
+        resultString = resultString.concat(curArr[i]);
+      }
+    }
+    if (restSpaces > 0) {
+      resultString = resultString.concat(' '.repeat(restSpaces));
+    }
+    resultArr.push(resultString);
+  }
+}
+
+```
+
+**ChatGpt Version**
+
+```javascript
+/**
+ * @param {string[]} words
+ * @param {number} maxWidth
+ * @return {string[]}
+ */
+var fullJustify = function(words, maxWidth) {
+   let result=[]
+   let currentLine=[]
+   let lineLength=0
+   
+   for(let word of words){
+     //Check if adding the word exceeds maxWidth
+     if(lineLength + currentLine.length + word.length > maxWidth){
+       //Process the current line
+       let spacesToDistribute = maxWidth - lineLength
+       for (let i=0; i< spacesToDistribute; i++){
+         currentLine[i % (currentLine.length - 1 || 1)]+= ' '
+       }
+       result.push(currentLine.join(''))
+       currentLine=[]
+       lineLength=0
+     }
+     currentLine.push(word)
+     lineLength += word.length
+   }
+  
+  //Process the last line
+  result.push(currentLine.join(' ') + ' '.repeat(maxWidth - lineLength - (currentLine.length - 1)))
+  return result
+};
+
+```
+
+### Complexity
+
+- Time complexity: **O(Nm)**
