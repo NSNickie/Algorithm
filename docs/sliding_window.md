@@ -52,3 +52,47 @@ var maxVowels = function (s, k) {
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
 
+
+
+## 643. Maximum Average Subarray I
+
+You are given an integer array `nums` consisting of `n` elements, and an integer `k`.
+
+Find a contiguous subarray whose **length is equal to** `k` that has the maximum average value and return *this value*. Any answer with a calculation error less than `10-5` will be accepted.
+
+### Thought
+
+This is a classic fixed-length sliding window problem.
+
+1. **Add**: Add nums[i] and calculate nums[i] into current total value.
+2. **Update**: Calculate the average and update the max average.
+3. **Remove**: The element nums[i-k+1] leaves the window and update current toatal value.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function (nums, k) {
+    let result = nums[0]
+    let currTotal = 0
+    for (let i = 0; i < nums.length; i++) {
+        currTotal += nums[i]
+        if (i < k - 1) {
+            continue
+        }
+       
+        result = Math.max(currTotal / k, result)
+        currTotal -= nums[i - k + 1]
+    }
+    return result
+};
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
