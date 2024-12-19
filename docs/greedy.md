@@ -20,9 +20,7 @@ Return true if you can reach the last index, or false otherwise.
 
 ### Thought
 
-Just don't think to much. Use a for loop to iterate throuth the array and check if the max jump index is bigger than the length of the array. Return true if it is, otherwise return false. This is because no matter where the index comes from, the max jump number is always the sum of the index and the value.
-
-
+Just don't think too much. Use a for loop to iterate throuth the array and check if the max jump index is bigger than the length of the array. Return true if it is, otherwise return false. This is because no matter where the index comes from, the max jump number is always the sum of the index and the value.
 
 ## 45. Jump Game Ⅱ
 
@@ -33,13 +31,11 @@ Each element `nums[i]` represents the maximum length of a forward jump from inde
 - `0 <= j <= nums[i]` and
 - `i + j < n`
 
-Return *the minimum number of jumps to reach* `nums[n - 1]`. The test cases are generated such that you can reach `nums[n - 1]`.
+Return _the minimum number of jumps to reach_ `nums[n - 1]`. The test cases are generated such that you can reach `nums[n - 1]`.
 
 ### Thought
 
 Just don't think too much. **Use a for loop to simulate the jump process until we reach to the end**. For every step, we jump as far as we can then record the step. Finally, we can get the minimum steps to reach the end. This is called <u>**Greedy Strategy**</u>.
-
-
 
 ## 763. Partition Labels
 
@@ -47,9 +43,8 @@ You are given a string `s`. We want to partition the string into as many parts a
 
 Note that the partition is done so that after concatenating all the parts in order, the resultant string should be `s`.
 
-Return *a list of integers representing the size of these parts*.
+Return _a list of integers representing the size of these parts_.
 
 ### Thought
 
-Apparently we need to record the last index of each characters. Use a for loop to go over the string `s` and save each last index of all characters in a map. Then go over the string `s` one more time to decide the end. 
-
+Apparently we need to record the last index of each characters. Use a for loop to go over the string `s` and save each last index of all characters in a map. Then go over the string `s` one more time to decide the end.
