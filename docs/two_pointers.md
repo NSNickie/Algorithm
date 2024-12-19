@@ -62,3 +62,38 @@ var isPalindrome = function (s) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+
+
+## 392. Is Subsequence
+
+Given two strings `s` and `t`, return `true` *if* `s` *is a **subsequence** of* `t`*, or* `false` *otherwise*.
+
+A **subsequence** of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., `"ace"` is a subsequence of `"abcde"` while `"aec"` is not).
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function (s, t) {
+    if (!s.length) return true
+    let sPointer = 0
+    let tPointer = 0
+    while (tPointer <= t.length - 1) {
+        if (t[tPointer] === s[sPointer]) {
+            sPointer++
+        }
+        tPointer++
+    }
+    return sPointer === s.length 
+};
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
