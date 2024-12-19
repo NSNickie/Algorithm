@@ -96,3 +96,45 @@ var findMaxAverage = function (nums, k) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+
+
+## 1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+
+Given an array of integers `arr` and two integers `k` and `threshold`, return *the number of sub-arrays of size* `k` *and average greater than or equal to* `threshold`.
+
+### Thought
+
+A classic fixed-length sliding window problem.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @param {number} threshold
+ * @return {number}
+ */
+var numOfSubarrays = function (arr, k, threshold) {
+  let result = 0;
+  let curTotal = 0;
+  for (let i = 0; i < arr.length; i++) {
+    curTotal += arr[i];
+    if (i < k - 1) {
+      continue;
+    }
+    if (curTotal / k >= threshold) {
+      result++;
+    }
+    curTotal -= arr[i - k + 1];
+  }
+  return result;
+};
+
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
