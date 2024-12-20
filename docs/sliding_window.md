@@ -138,3 +138,53 @@ var numOfSubarrays = function (arr, k, threshold) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+## 
+
+## 2090. K Radius Subarray Averages
+
+You are given a **0-indexed** array `nums` of `n` integers, and an integer `k`.
+
+The **k-radius average** for a subarray of `nums` **centered** at some index `i` with the **radius** `k` is the average of **all** elements in `nums` between the indices `i - k` and `i + k` (**inclusive**). If there are less than `k` elements before **or** after the index `i`, then the **k-radius average** is `-1`.
+
+Build and return *an array* `avgs` *of length* `n` *where* `avgs[i]` *is the **k-radius average** for the subarray centered at index* `i`.
+
+The **average** of `x` elements is the sum of the `x` elements divided by `x`, using **integer division**. The integer division truncates toward zero, which means losing its fractional part.
+
+- For example, the average of four elements `2`, `3`, `1`, and `5` is `(2 + 3 + 1 + 5) / 4 = 11 / 4 = 2.75`, which truncates to `2`.
+
+### Thought
+
+A special sliding window problem. The key is that *do not* use middle index to calculate but do use the end index. 
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var getAverages = function (nums, k) {
+    let curTotal = 0
+    const result = new Array(nums.length)
+    for (let i = 0; i < nums.length; i++) {
+        if (i - k < 0 || i + k >= nums.length) {
+            result[i] = -1
+
+        }
+        curTotal += nums[i]
+        if (i >= 2 * k) {
+            result[i - k] = Math.floor(curTotal / (k * 2 + 1))
+            curTotal -= nums[i - 2 * k]
+        }
+    }
+    return result
+};
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(n)**
+
