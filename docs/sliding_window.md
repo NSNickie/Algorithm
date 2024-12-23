@@ -236,3 +236,64 @@ var minimumRecolors = function (blocks, k) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+
+
+## 1052. Grumpy Bookstore Owner
+
+There is a bookstore owner that has a store open for `n` minutes. You are given an integer array `customers` of length `n` where `customers[i]` is the number of the customers that enter the store at the start of the `ith` minute and all those customers leave after the end of that minute.
+
+During certain minutes, the bookstore owner is grumpy. You are given a binary array grumpy where `grumpy[i]` is `1` if the bookstore owner is grumpy during the `ith` minute, and is `0` otherwise.
+
+When the bookstore owner is grumpy, the customers entering during that minute are not **satisfied**. Otherwise, they are satisfied.
+
+The bookstore owner knows a secret technique to remain **not grumpy** for `minutes` consecutive minutes, but this technique can only be used **once**.
+
+Return the **maximum** number of customers that can be *satisfied* throughout the day.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} customers
+ * @param {number[]} grumpy
+ * @param {number} minutes
+ * @return {number}
+ */
+var maxSatisfied = function (customers, grumpy, minutes) {
+  let maxTolerant = 0;
+  let currTolerant = 0;
+  let defaultClients = 0;
+  for (let i = 0; i < customers.length; i++) {
+    if (i < minutes) {
+      if (grumpy[i] === 1) {
+        currTolerant += customers[i];
+      } else {
+        defaultClients += customers[i];
+      }
+      // console.log(defaultClients)
+      maxTolerant = Math.max(currTolerant, maxTolerant);
+      continue;
+    }
+    if (grumpy[i] === 1) {
+      currTolerant += customers[i];
+    } else {
+      defaultClients += customers[i];
+    }
+    if (grumpy[i - minutes] === 1) {
+      currTolerant -= customers[i - minutes];
+    }
+    maxTolerant = Math.max(currTolerant, maxTolerant);
+    // console.log(defaultClients)
+  }
+  return defaultClients + maxTolerant;
+};
+
+```
+
+
+
+### Complexit
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
