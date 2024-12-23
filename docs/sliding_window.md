@@ -188,3 +188,51 @@ var getAverages = function (nums, k) {
 - Time complexity: **O(n)**
 - Space complexity: **O(n)**
 
+
+
+## 2379. Minimum Recolors to Get K consecutive Black Blocks
+
+You are given a **0-indexed** string `blocks` of length `n`, where `blocks[i]` is either `'W'` or `'B'`, representing the color of the `ith` block. The characters `'W'` and `'B'` denote the colors white and black, respectively.
+
+You are also given an integer `k`, which is the desired number of **consecutive** black blocks.
+
+In one operation, you can **recolor** a white block such that it becomes a black block.
+
+Return *the **minimum** number of operations needed such that there is at least **one** occurrence of* `k` *consecutive black blocks.*
+
+### Thought
+
+Classic sliding window problem. Initial first window and calculate rest blocks of them.
+
+### Code
+
+```javascript
+/**
+ * @param {string} blocks
+ * @param {number} k
+ * @return {number}
+ */
+var minimumRecolors = function (blocks, k) {
+  let curBlacks = 0;
+  let max = 0;
+
+  for (let i = 0; i < k; i++) {
+    if (blocks[i] === 'B') {
+      curBlacks++;
+      max = Math.max(curBlacks, max);
+    }
+  }
+  for (let i = k; i < blocks.length; i++) {
+    if (blocks[i] === 'B') curBlacks++;
+    if (blocks[i - k] === 'B') curBlacks--;
+    max = Math.max(curBlacks, max);
+  }
+  return k - max;
+};
+
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
