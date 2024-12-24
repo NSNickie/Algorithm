@@ -297,3 +297,75 @@ var maxSatisfied = function (customers, grumpy, minutes) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
+
+
+
+## 1461. Check If a String Contains All Binary Codes of Size K
+
+Given a binary string `s` and an integer `k`, return `true` *if every binary code of length* `k` *is a substring of* `s`. Otherwise, return `false`.
+
+### Thought
+
+Classic sliding window problem. We can make a set to store all combination and return true if the size is equal to $2^k$. However string operation is not very efficient. There is a better way called ***Hash Scroll*** to replace string operation.
+
+### Code
+
+- **String operation**
+
+```javascript
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {boolean}
+ */
+var hasAllCodes = function (s, k) {
+    let curStr = ''
+    const set = new Set()
+    const total = 1 << k
+    for (let i = 0; i < s.length; i++) {
+        if (i < k) {
+            curStr += s[i]
+            continue
+        }
+        set.add(curStr)
+        if (set.size === total) {
+            return true
+        }
+        curStr += s[i]
+        curStr = curStr.slice(1)
+        set.add(curStr)
+    }
+    // console.log(set)
+    return set.size === total
+};
+```
+
+- **Hash Scroll**
+
+```javascript
+var hasAllCodes = function(s, k) {
+    if (s.length < k) return false;
+
+    const seen = new Set();
+    const total = 1 << k; // 2^k
+    let hash = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        hash = ((hash << 1) & (total - 1)) | (s[i] - '0'); 
+        if (i >= k - 1) seen.add(hash);                  
+        if (seen.size === total) return true;
+    }
+
+    return false;
+};
+
+```
+
+  
+
+### **hash = ((hash << 1) & (total - 1)) | (s[i] - '0')???**
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
