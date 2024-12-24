@@ -369,3 +369,63 @@ var hasAllCodes = function(s, k) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 2841. Maximum Sum of Almost Unique Subarray
+
+You are given an integer array `nums` and two positive integers `m` and `k`.
+
+Return *the **maximum sum** out of all **almost unique** subarrays of length* `k` *of* `nums`. If no such subarray exists, return `0`.
+
+A subarray of `nums` is **almost unique** if it contains at least `m` distinct elements.
+
+A subarray is a contiguous **non-empty** sequence of elements within an array.
+
+### Thought
+
+Classic sliding window problem. We can use a map to store count of every index.   Use a variable to recored total sum.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} m
+ * @param {number} k
+ * @return {number}
+ */
+var maxSum = function (nums, m, k) {
+    let curMap = new Map()
+    let total = 0
+    let max = 0
+    for (let i = 0; i < nums.length; i++) {
+        if (i < k - 1) {
+            total += nums[i]
+            curMap.set(nums[i], (curMap.get(nums[i]) || 0) + 1);
+            continue
+        }
+        curMap.set(nums[i], curMap.get(nums[i]) ? curMap.get(nums[i]) + 1 : 1)
+
+        total += nums[i]
+        if (curMap.size >= m) {
+            max = Math.max(total, max)
+        }
+        // console.log(curArr)
+        // console.log(curSet)
+
+        const leftNum = nums[i - k + 1];
+        curMap.set(leftNum, curMap.get(leftNum) - 1);
+        if (curMap.get(leftNum) === 0) {
+            curMap.delete(leftNum);
+        }
+        total -= leftNum;
+    }
+    return max
+};
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(m)**
