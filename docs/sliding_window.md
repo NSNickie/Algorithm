@@ -492,3 +492,84 @@ var maximumSubarraySum = function (nums, k) {
 - Time complexity: **O(n)**
 - Space complexity: **O(1)**
 
+
+
+## 1423. Maximum Points You Can Obtain from Cards
+
+There are several cards **arranged in a row**, and each card has an associated number of points. The points are given in the integer array `cardPoints`.
+
+In one step, you can take one card from the beginning or from the end of the row. You have to take exactly `k` cards.
+
+Your score is the sum of the points of the cards you have taken.
+
+Given the integer array `cardPoints` and the integer `k`, return the *maximum score* you can obtain.
+
+### Thought
+
+**Key Insights**
+
+**Method1**
+
+1. **Global Approach: Total Sum - Minimum Subarray Sum**
+   - instead of directly picking `k` cards, think of the problem as **removing a continuous subarray of size** `n-k` from the array. The remaining cards will give you the maximum score.
+   - Hence, the problem can be rephrased as finding the **minimum sum of a subarray of size `n-k`** and subtracting it from the total sum of the array. 
+2. **Sliding Window Technique**
+   - Use a sliding window of size `n-k` to efficiently calculate the minimum sum of such a subarray.
+   - The sliding window keeps track of the sum as the window slides across the array, minimizing redundant calculations.
+3. **Optimization**
+   - Compute the total sum in **O(n)** using `reduce`.
+   - Use the sliding window to find the minimum subarray sum in **O(n)**.
+
+**Method2**
+
+Directly pick `k` cards from either end of the array and calculate the maximum score. This involves systematically exploring all posiible splits between the front and back portions.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} cardPoints
+ * @param {number} k
+ * @return {number}
+ */
+var maxScore = function (cardPoints, k) {
+  let curSum = 0;
+  let max = -Infinity;
+  for (let i = 0; i < k; i++) {
+    curSum += cardPoints[i];
+  }
+  max = curSum;
+  for (let i = 1; i <= k; i++) {
+    curSum += cardPoints[cardPoints.length - i] - cardPoints[k - i];
+    max = Math.max(curSum, max);
+  }
+  return max;
+
+  // let curSum = 0
+  // let min = Infinity
+  // let total = 0
+  // const window = cardPoints.length - k
+  // for (let i = 0; i < cardPoints.length; i++) {
+  //     total += cardPoints[i]
+  //     if (i < window - 1) {
+  //         curSum += cardPoints[i]
+  //         continue
+  //     }
+
+  //     curSum += cardPoints[i]
+  //     min = Math.min(min, curSum)
+  //     // console.log(curSum)
+  //     // console.log(min)
+  //     curSum -= cardPoints[i - window + 1]
+
+  // }
+  // return window === 0 ? total : total - min
+};
+
+
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(1)**
