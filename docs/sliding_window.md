@@ -753,3 +753,55 @@ var divisorSubstrings = function (num, k) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 1984. Minimum Difference Between Highest and Lowest of K Scores
+
+You are given a **0-indexed** integer array `nums`, where `nums[i]` represents the score of the `ith` student. You are also given an integer `k`.
+
+Pick the scores of any `k` students from the array so that the **difference** between the **highest** and the **lowest** of the `k` scores is **minimized**.
+
+Return *the **minimum** possible difference*.
+
+### Thought
+
+**Key Steps**:
+
+1. **Sort the Scores:**
+
+   Sorting the array ensures that all possible subsets of `k` consecutive scores are arranged in increasing order, which minimizes the difference between the highest and lowest scores in any such subset.
+
+2. **Sliding Window Approach:**
+
+   - Iterate over the sorted array with a sliding window of size `k`.
+
+   - At each step, calculate the difference between the first and last elements of the window (i.e., `nums[i+k-1] - nums[i]`).
+
+   - Track the minimum difference:
+
+     Keep track of the smallest difference encountered during the iteration.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} numsd
+ * @param {number} k
+ * @return {number}
+ */
+var minimumDifference = function (nums, k) {
+    nums.sort((a, b) => a - b)
+    let minDiff = Infinity
+    for (let i = 0; i <= nums.length - k; i++) {
+        const diff = nums[i + k - 1] - nums[i]
+        minDiff = Math.min(minDiff, diff)
+    }
+    return minDiff
+}; 
+```
+
+### Complexity
+
+- Time complexity: **O($nlogn$)**
+- Space complexity: **O(1)**
