@@ -694,3 +694,62 @@ var maxFreq = function (s, maxLetters, minSize, maxSize) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(N)**
+
+
+
+## 2269. Find The K-Beauty of a Number
+
+The **k-beauty** of an integer `num` is defined as the number of **substrings** of `num` when it is read as a string that meet the following conditions:
+
+- It has a length of `k`.
+- It is a divisor of `num`.
+
+Given integers `num` and `k`, return *the k-beauty of* `num`.
+
+Note:
+
+- **Leading zeros** are allowed.
+- `0` is not a divisor of any value.
+
+A **substring** is a contiguous sequence of characters in a string.
+
+### Thought
+
+A classic sliding window problem.
+
+### Code
+
+```javascript
+/**
+ * @param {number} num
+ * @param {number} k
+ * @return {number}
+ */
+var divisorSubstrings = function (num, k) {
+    let curStr = ''
+    let count = 0
+    const str = num.toString()
+    for (let i = 0; i < k; i++) {
+        curStr = curStr.concat(str[i])
+    }
+    
+    // console.log(curStr)
+    for (let i = k; i <= str.length; i++) {
+        // console.log(parseInt(curStr))
+        if (num % parseInt(curStr) === 0) {
+            count++
+        }
+        if (i === str.length) {
+            break
+        }
+        curStr = curStr.concat(str[i])
+        curStr = curStr.slice(1)
+    }
+    return count
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
