@@ -808,8 +808,36 @@ var minimumDifference = function (nums, k) {
 
 
 
-## 377. Combination Sum IV
+# Variable-length sliding window
 
-Given an array of **distinct** integers `nums` and a target integer `target`, return *the number of possible combinations that add up to* `target`.
+## 3. Combination Sum IV
 
-The test cases are generated so that the answer can fit in a **32-bit** integer.
+Given a string `s`, find the length of the **longest** **substring** without repeating characters.
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function (s) {
+    const set = new Set()
+    let max = 0
+    let left = 0
+    for (let i = 0; i < s.length; i++) {
+        while (set.has(s[i])) {
+            set.delete(s[left])
+            left++
+        }
+        set.add(s[i])
+        max = Math.max(max, i - left + 1)
+    }
+    return max
+};
+```
+
+### Complexity
+
+- Time complexity: **O(n)**
+- Space complexity: **O(∣Σ∣)**
