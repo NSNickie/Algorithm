@@ -841,3 +841,10 @@ var lengthOfLongestSubstring = function (s) {
 
 - Time complexity: **O(n)**
 - Space complexity: **O(∣Σ∣)**
+
+
+
+## 3090. Maximum Length Substring With Two Occurrences
+
+Given a string `s`, return the **maximum** length of a substring such that it contains *at most two occurrences* of each character.
+
