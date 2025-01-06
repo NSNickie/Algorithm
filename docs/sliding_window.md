@@ -884,3 +884,61 @@ var maximumLengthSubstring = function (s) {
 - Time complexity: **O(N)**
 - Space complexity: **O(N)**
 
+
+
+## 1493. Longest Subarray of 1's After Deleting One Element
+
+Given a binary array `nums`, you should delete one element from it.
+
+Return *the size of the longest non-empty subarray containing only* `1`*'s in the resulting array*. Return `0` if there is no such subarray.
+
+### Thought
+
+We solve this using the **sliding window technique**:
+
+1. **Sliding Window Concept:**
+   - Maintain a window `[left,right]`that contains at most one `0`.
+   - When the window contains more than one `0`, adjust the `left`pointer to shrink the window until it becomes valid ( i.e., at most one `0`).
+2. **Tracking Zero Count**:
+   - Use a variable `zeroCount` to keep track of the number of `0` in the current window.
+   - When a new 0 is encountered, increment `zeroCount.`
+   - If `zeroCount`becomes greater than 1, move the `left` pointer forward and decrement the count of the element at `left`until `zeroCount`is back to 1.
+3. **Updating the Result**:
+   - For every valid window (with at most one `0`), calculate the length of the subarray as `right-left`.
+   - Track the maximum length seen so far.
+4. **Special Cases**:
+   - If the array contains only `1`s, the result should be `nums.length-1` (since we must delete one element).
+   - If the array contains no `1`s, the result is 0.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestSubarray = function (nums) {
+    let zeroCount = 0
+    let left = 0
+    let max = 0
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+            zeroCount++
+        }
+        while (zeroCount > 1) {
+            if (nums[left] === 0) {
+                zeroCount--
+            }
+            left++
+        }
+        max = Math.max(i - left , max)
+
+    }
+    return max 
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
