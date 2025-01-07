@@ -23,3 +23,4 @@ var totalFruit = function (fruits) {
         // console.log(map)
     }
     return max
+};
