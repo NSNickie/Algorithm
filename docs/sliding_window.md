@@ -988,3 +988,40 @@ var equalSubstring = function (s, t, maxCost) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 2730. Find the Longest Semi-Repetitive Substring
+
+You are given a digit string `s` that consists of digits from 0 to 9.
+
+A string is called **semi-repetitive** if there is **at most** one adjacent pair of the same digit. For example, `"0010"`, `"002020"`, `"0123"`, `"2002"`, and `"54944"` are semi-repetitive while the following are not: `"00101022"` (adjacent same digit pairs are 00 and 22), and `"1101234883"` (adjacent same digit pairs are 11 and 88).
+
+Return the length of the **longest semi-repetitive** **substring **of `s`.
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestSemiRepetitiveSubstring = function (s) {
+    let lastDuplicate = 0
+    let max = 0
+    let left = 0
+    for (let i = 0; i < s.length; i++) {
+        if (i >= 1 && s[i] === s[i - 1]) {
+            left = lastDuplicate
+            lastDuplicate = i
+        }
+        max = Math.max(i - left + 1, max)
+    }
+    return max
+};
+```
+
+### Code
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
