@@ -174,3 +174,66 @@ var maximumBeauty = function (nums, k) {
 
 - Time complexity: **O(NlogN)**
 - Space complexity: **O(1)**
+
+
+
+## 2024. Maximize the Confusion of an Exam
+
+A teacher is writing a test with `n` true/false questions, with `'T'` denoting true and `'F'` denoting false. He wants to confuse the students by **maximizing** the number of **consecutive** questions with the **same** answer (multiple trues or multiple falses in a row).
+
+You are given a string `answerKey`, where `answerKey[i]` is the original answer to the `ith` question. In addition, you are given an integer `k`, the maximum number of times you may perform the following operation:
+
+- Change the answer key for any question to `'T'` or `'F'` (i.e., set `answerKey[i]` to `'T'` or `'F'`).
+
+Return *the **maximum** number of consecutive* `'T'`s or `'F'`s *in the answer key after performing the operation at most* `k` *times*.
+
+### Code
+
+```javascript
+/**
+ * @param {string} answerKey
+ * @param {number} k
+ * @return {number}
+ */
+var maxConsecutiveAnswers = function (answerKey, k) {
+    let maxT = 0
+    let leftT = 0
+    let fCount = 0
+    for (let i = 0; i < answerKey.length; i++) {
+        if (answerKey[i] === 'F') {
+            while (fCount >= k) {
+                if (answerKey[leftT] === 'F') {
+                    fCount--
+                }
+                leftT++
+            }
+            fCount++
+        }
+        maxT = Math.max(i - leftT + 1, maxT)
+    }
+
+    let maxF = 0
+    let leftF = 0
+    let tCount = 0
+    for (let i = 0; i < answerKey.length; i++) {
+        if (answerKey[i] === 'T') {
+            while (tCount >= k) {
+                if (answerKey[leftF] === 'T') {
+                    tCount--
+                }
+                leftF++
+            }
+            tCount++
+        }
+
+        maxF = Math.max(i - leftF + 1, maxF)
+    }
+    // console.log(maxF,maxT)
+    return Math.max(maxF,maxT)
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
