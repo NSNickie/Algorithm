@@ -1075,3 +1075,42 @@ var totalFruit = function (fruits) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 1004. Max Consecutive Ones III
+
+Given a binary array `nums` and an integer `k`, return the maximum number of consecutive `1`'s in the array if you can flip at most `k 0`'s.
+
+### Code 
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var longestOnes = function (nums, k) {
+    let max = 0
+    let zeroCount = 0
+    let left = 0
+    for (let right = 0; right < nums.length; right++) {
+        if (nums[right] === 0) {
+            zeroCount++
+        }
+        while (zeroCount > k) {
+            if (nums[left] === 0) {
+                zeroCount--
+            }
+            left++
+        }
+        max = Math.max(max, right - left + 1)
+    }
+    return max
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
