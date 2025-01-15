@@ -1114,3 +1114,49 @@ var longestOnes = function (nums, k) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 1658. Minimum Operations to Reduce X to Zero
+
+You are given an integer array `nums` and an integer `x`. In one operation, you can either remove the leftmost or the rightmost element from the array `nums` and subtract its value from `x`. Note that this **modifies** the array for future operations.
+
+Return *the **minimum number** of operations to reduce* `x` *to **exactly*** `0` *if it is possible**, otherwise, return* `-1`.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} x
+ * @return {number}
+ */
+var minOperations = function (nums, x) {
+    let totalSum = 0
+    for (const num of nums) {
+        totalSum += num
+    }
+    if (totalSum - x < 0) {
+        return -1
+    }
+    let min = Infinity
+    let left = 0
+    let curSum = 0
+    for (let right = 0; right < nums.length; right++) {
+        curSum += nums[right]
+        while (curSum > totalSum - x) {
+            curSum -= nums[left]
+            left++
+        }
+        if (curSum === totalSum - x) {
+            min = Math.min(nums.length - (right - left + 1), min)
+        }
+    }
+    return min === Infinity ? -1 : min
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
