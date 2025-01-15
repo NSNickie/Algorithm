@@ -23,6 +23,6 @@ var minOperations = function (nums, x) {
     if (curSum === totalSum - x) {
       min = Math.min(nums.length - (right - left + 1), min);
     }
+    return min === Infinity ? -1 : min;
   }
-  return min === Infinity ? -1 : min;
 };
