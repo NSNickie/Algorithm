@@ -1205,3 +1205,48 @@ var maxFrequency = function (nums, k) {
 
 - Time complexity: **O(NlogN)**
 - Space complexity: **O(1)**
+
+
+
+## 2516. Take K of Each Character From Left and Right
+
+You are given a string `s` consisting of the characters `'a'`, `'b'`, and `'c'` and a non-negative integer `k`. Each minute, you may take either the **leftmost** character of `s`, or the **rightmost** character of `s`.
+
+Return *the **minimum** number of minutes needed for you to take **at least*** `k` *of each character, or return* `-1` *if it is not possible to take* `k` *of each character.*
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
+var takeCharacters = function (s, k) {
+    const count = { 'a': 0, 'b': 0, 'c': 0 }
+    let max = 0
+    for (let i = 0; i < s.length; i++) {
+        count[s[i]]++
+    }
+    // console.log(count)
+    if (count['a'] < k || count['b'] < k || count['c'] < k) {
+        return -1
+    }
+    const cur = { 'a': 0, 'b': 0, 'c': 0 }
+    let left = 0
+    for (let i = 0; i < s.length; i++) {
+        cur[s[i]]++
+        while (count['a'] - cur['a'] < k || count['b'] - cur['b'] < k || count['c'] - cur['c'] < k) {
+            cur[s[left]]--
+            left++
+        }
+        max = Math.max(i - left + 1, max)
+    }
+    return s.length - max
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
