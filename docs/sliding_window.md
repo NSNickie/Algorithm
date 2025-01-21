@@ -1250,3 +1250,44 @@ var takeCharacters = function (s, k) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 209. Minimum Size Subarray Sum
+
+Given an array of positive integers `nums` and a positive integer `target`, return *the **minimal length** of a* 
+
+*subarray*
+
+ *whose sum is greater than or equal to* `target`. If there is no such subarray, return `0` instead.
+
+### Code
+
+```javascript
+/**
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function (target, nums) {
+    let min = nums.length + 1
+    let curSum = 0
+    let left = 0
+    for (let right = 0; right < nums.length; right++) {
+        curSum += nums[right]
+        while (curSum - nums[left] >= target) {
+            curSum -= nums[left++]
+        }
+        if (curSum >= target) {
+            min = Math.min(min, right - left + 1)
+        }
+
+    }
+    return min <= nums.length ? min : 0
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
