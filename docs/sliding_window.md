@@ -1291,3 +1291,68 @@ var minSubArrayLen = function (target, nums) {
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+
+
+## 2904. Shortest and Lexicographically Smallest Beautiful String
+
+You are given a binary string `s` and a positive integer `k`.
+
+A substring of `s` is **beautiful** if the number of `1`'s in it is exactly `k`.
+
+Let `len` be the length of the **shortest** beautiful substring.
+
+Return *the lexicographically **smallest** beautiful substring of string* `s` *with length equal to* `len`. If `s` doesn't contain a beautiful substring, return *an **empty** string*.
+
+A string `a` is lexicographically **larger** than a string `b` (of the same length) if in the first position where `a` and `b` differ, `a` has a character strictly larger than the corresponding character in `b`.
+
+- For example, `"abcd"` is lexicographically larger than `"abcc"` because the first position they differ is at the fourth character, and `d` is greater than `c`.
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var shortestBeautifulSubstring = function (s, k) {
+    let left = 0
+    let curOneCount = 0
+    let min = Infinity
+    let result = 0
+    for (let right = 0; right < s.length; right++) {
+        if (s[right] === '1') {
+            curOneCount++
+        }
+        while (curOneCount > k || s[left] === '0') {
+            if (s[left] === '1') {
+                curOneCount--
+            }
+            left++
+        }
+        if (curOneCount === k) {
+            const curLen = right - left + 1
+            if (curLen < min) {
+                min = curLen
+                result = s.substring(left, right + 1)
+            } else if (curLen === min) {
+                const curSub = s.substring(left, right + 1)
+                if (curSub < result) {
+                    result = curSub
+                }
+            }
+        }
+    }
+    return curOneCount < k ? '' : result
+};
+```
+
+### Thought
+
+Personally the key of this kind of sliding window problem is that before updating the max/min value, you should remember to judge if the condition meets the requirements. In this problem that is `if (curOneCount === k)`.
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(1)**
