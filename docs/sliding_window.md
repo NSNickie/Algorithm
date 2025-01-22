@@ -1356,3 +1356,52 @@ Personally the key of this kind of sliding window problem is that before updatin
 
 - Time complexity: **O(N)**
 - Space complexity: **O(1)**
+
+## 
+
+## 1234. Replace the Substring for Balanced String
+
+You are given a string s of length `n` containing only four kinds of characters: `'Q'`, `'W'`, `'E'`, and `'R'`.
+
+A string is said to be **balanced** if each of its characters appears `n / 4` times where `n` is the length of the string.
+
+Return *the minimum length of the substring that can be replaced with **any** other string of the same length to make* `s` ***balanced***. If s is already **balanced**, return `0`.
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var balancedString = function (s) {
+    const limit = s.length / 4
+    const count = { 'Q': 0, 'W': 0, 'E': 0, 'R': 0 }
+    for (const char of s) {
+        count[char]++
+    }
+
+    console.log(count)
+    if (count['Q'] <= limit && count['W'] <= limit && count['E'] <= limit && count['R'] <= limit) {
+        return 0
+    }
+    let min = Infinity
+    let left = 0
+    for (let right = 0; right < s.length; right++) {
+        count[s[right]]--
+        while (count.Q <= limit && count.W <= limit && count.E <= limit && count.R <= limit) {
+            // console.log(count)
+            min = Math.min(min, right - left + 1)
+            count[s[left]]++
+            left++
+        }
+    }
+    return min
+
+};
+```
+
+### Complexity
+
+- Time complexity: **O(N)**
+- Space complexity: **O(N)**
