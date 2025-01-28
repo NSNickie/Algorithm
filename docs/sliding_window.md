@@ -1566,3 +1566,51 @@ var numberOfSubstrings = function(s) {
 
 - Time: **O(N)**
 - Space: **O(1)**
+
+
+
+## 2962. Count Subarrays Where Max Element Appears at Least K Times
+
+You are given an integer array `nums` and a **positive** integer `k`.
+
+Return *the number of subarrays where the **maximum** element of* `nums` *appears **at least*** `k` *times in that subarray.*
+
+A **subarray** is a contiguous sequence of elements within an array.
+
+### Code
+
+```javscript
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var countSubarrays = function (nums, k) {
+    if (nums.length === 0 || k > nums.length) {
+        return 0
+    }
+    const max = Math.max(...nums)
+    let left = 0
+    let curCount = 0
+    let totalCount = 0
+    for (let right = 0; right < nums.length; right++) {
+        if (nums[right] === max) {
+            curCount++
+        }
+        while (curCount >= k) {
+            totalCount += nums.length - right
+            if (nums[left] === max) {
+                curCount--
+            }
+            left++
+        }
+    }
+    return totalCount
+
+};
+```
+
+### Complexity
+
+- Time:  **O(N)**
+- Space: **O(1)**
