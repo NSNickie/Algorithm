@@ -1614,3 +1614,40 @@ var countSubarrays = function (nums, k) {
 
 - Time:  **O(N)**
 - Space: **O(1)**
+
+
+
+## 3325. Count Substrings With K-Frequency Characters I
+
+Given a string `s` and an integer `k`, return the total number of substrings of `s` where **at least one** character appears **at least** `k` times.
+
+### Code
+
+```javascript
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
+var numberOfSubstrings = function (s, k) {
+    let left = 0
+    let totalCount = 0
+
+    const map = new Map()
+    for (let right = 0; right < s.length; right++) {
+        map.set(s[right], (map.get(s[right]) || 0) + 1)
+        while (map.get(s[right]) >= k) {
+            totalCount += s.length - right
+            map.set(s[left], map.get(s[left]) - 1)
+            left++
+        }
+    }
+    return totalCount
+};
+```
+
+### Complexity
+
+- Time: **O(N)**
+- Space: **O(N)**
+
