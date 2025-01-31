@@ -1651,3 +1651,50 @@ var numberOfSubstrings = function (s, k) {
 - Time: **O(N)**
 - Space: **O(N)**
 
+
+
+## 2799. Count Complete Subarrays in an Array
+
+You are given an array `nums` consisting of **positive** integers.
+
+We call a subarray of an array **complete** if the following condition is satisfied:
+
+- The number of **distinct** elements in the subarray is equal to the number of distinct elements in the whole array.
+
+Return *the number of **complete** subarrays*.
+
+A **subarray** is a contiguous non-empty part of an array.
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countCompleteSubarrays = function (nums) {
+    const diffCount = new Set(nums).size;
+    let left = 0
+    let totalCount = 0
+    const map = new Map()
+    for (let right = 0; right < nums.length; right++) {
+        map.set(nums[right], (map.get(nums[right]) || 0) + 1)
+        while (map.size === diffCount) {
+            totalCount += nums.length - right
+            map.set(nums[left], map.get(nums[left]) - 1)
+            if (map.get(nums[left]) === 0) {
+                map.delete(nums[left])
+            }
+            left++
+        }
+    }
+    return totalCount
+
+};
+```
+
+### Complexity
+
+- Time: **O(N)**
+- Space: **O(N)**
+
